@@ -12,12 +12,16 @@ ENV N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=false
 
 # Fix permissions for /data
 USER root
-RUN mkdir -p /data && chown -R 1000:1000 /data
-USER 1000
+RUN mkdir -p /data && chown -R node:node /data
+USER node
 
 # Pre-load the workflow placeholder (user can import it manually or via CLI)
-COPY --chown=1000:1000 workflows/initial-workflow.json /home/node/initial-workflow.json
+COPY --chown=node:node workflows/initial-workflow.json /home/node/initial-workflow.json
+
+# Ensure n8n is in path
+ENV PATH=$PATH:/home/node/.npm-global/bin:/usr/local/bin
 
 EXPOSE 7860
 
+# Use full path to avoid 'command not found' errors on some platforms
 CMD ["n8n", "start"]
