@@ -1,8 +1,8 @@
 ---
-title: WhatsApp Shopify AI Bot
-emoji: 🤖
-colorFrom: green
-colorTo: blue
+title: n8n
+emoji: 🚀
+colorFrom: blue
+colorTo: indigo
 sdk: docker
 pinned: false
 ---
