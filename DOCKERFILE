@@ -1,0 +1,16 @@
+FROM n8nio/n8n:latest
+
+USER root
+RUN apk add --no-cache curl
+RUN mkdir -p /workflow && chown node:node /workflow
+
+COPY --chown=node:node workflow/whatsapp-shopify.json /workflow/whatsapp-shopify.json
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+USER node
+
+# Hugging Face Spaces requires port 7860
+EXPOSE 7860
+
+ENTRYPOINT ["/entrypoint.sh"]
